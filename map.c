@@ -6,11 +6,23 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 19:43:56 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/02/24 08:28:17 by rbohmert         ###   ########.fr       */
+/*   Updated: 2016/05/19 02:51:16 by rbohmert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	put_indic(t_infos *i, int mode)
+{
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 5, 5, 0xFFFFFF, i->path);
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 300, 5, 0xFFFFFF, "CONTROLS:");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 420, 5, 0xFFFFFF, "arrows = move;");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 420, 25, 0xFFFFFF, "+ / - = zoom +/-;");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 420, 45, 0xFFFFFF, "Pg up/down = depth +/-;");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 800, 5, 0xFFFFFF, "? = hide/show instructions;");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 800, 25, 0xFFFFFF, "space = reset params;");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 800, 45, 0xFFFFFF, "ESC = quit;");
+}	
 
 void	add_pixel(int x, int y, int z, t_infos *i)
 {
@@ -22,6 +34,10 @@ void	add_pixel(int x, int y, int z, t_infos *i)
 	p->y = y;
 	p->z =  z;
 	p->nb = nb;
+	if (z > i->zmax)
+		i->zmax = z;
+	if (z < i->zmin)
+		i->zmin = z;
 	nb++;
 	ft_push_back(&(i->list), p, 0);
 }

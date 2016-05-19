@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 16:32:47 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/02/24 08:31:00 by rbohmert         ###   ########.fr       */
+/*   Updated: 2016/05/19 02:51:18 by rbohmert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,28 @@ int		key_hook(int key, t_infos *i)
 	(key == 53) ? exit(2) : 0;
 	i->zoom += (key == 69) ? 1 : 0;
 	i->zoom -= (key == 78 && i->zoom > 1) ? 1 : 0;
-	i->xstart += (key == 124) ? i->zoom * 10 : 0;
-	i->xstart -= (key == 123) ? i->zoom * 10 : 0;
-	i->ystart += (key == 125) ? i->zoom * 10 : 0;
-	i->ystart -= (key == 126) ? i->zoom * 10 : 0;
+	i->xstart += (key == 124) ? HEIGTH / 10 : 0;
+	i->xstart -= (key == 123) ? HEIGTH / 10 : 0;
+	i->ystart += (key == 125) ? WIDTH / 10 : 0;
+	i->ystart -= (key == 126) ? WIDTH / 10 : 0;
 	i->prof -= (key == 116 && i->prof > 1) ? 1 : 0;
 	i->prof += (key == 121) ? 1 : 0;
-	put_img(i);
+	if (key == 44 && i->show)
+		i->show = 0;
+	else if (key == 44 && !i->show)
+		i->show = 1;
+	key == 49 ? init_info(i, i->path) : 0;
+	put_img(i, 0);
+	put_img(i, 1);
 	return (1);
 }
 
-void init_info(t_infos *i)
+void init_info(t_infos *i, char *path)
 {
-	i->list = NULL;
-	i->xstart = 400;
-	i->ystart = 150;
+	i->show = 1;
+	i->path = path;
+	i->xstart = WIDTH / 2;
+	i->ystart = HEIGTH / 2;
 	i->zoom = 10;
 	i->prof = 5;
 }
@@ -55,10 +62,14 @@ int main (int ac, char **av)
 
 	(ac == 1) ? printf("no arg") : 0;
 	i.mlx = mlx_init();
-	i.win = mlx_new_window(i.mlx, WIDTH, HEIGTH, "mlx 42");
-	init_info(&i);
+	i.list = NULL;
+	init_info(&i, av[1]);
 	get_coord(av[1], &i);
-	put_img(&i);
-	mlx_key_hook(i.win, key_hook, &i); 
+	i.win = mlx_new_window(i.mlx, WIDTH, HEIGTH, "Perspective Isometrique");
+	i.win2 = mlx_new_window(i.mlx, WIDTH, HEIGTH, "Perspective Cavaliere");
+	put_img(&i, 0);
+	put_img(&i, 1);
+	mlx_hook(i.win, 2, 3, key_hook, &i); 
+	mlx_hook(i.win2, 2, 3, key_hook, &i); 
 	mlx_loop(i.mlx);
 }
