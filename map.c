@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 19:43:56 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 03:19:15 by ppomet           ###   ########.fr       */
+/*   Updated: 2016/05/19 04:08:00 by rbohmert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ void	put_indic(t_infos *i, int mode)
 	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
 					5, 5, 0xFFFFFF, i->path);
 	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
-					300, 5, 0xFFFFFF, "CONTROLS:");
+					300, 25, 0xFFFFFF, "CONTROLS:");
 	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
-					420, 5, 0xFFFFFF, "arrows = move;");
+					420, 25, 0xFFFFFF, "arrows = move;");
 	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
-					420, 25, 0xFFFFFF, "+ / - = zoom +/-;");
+					420, 45, 0xFFFFFF, "+ / - = zoom +/-;");
 	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
-					420, 45, 0xFFFFFF, "Pg up/down = depth +/-;");
+					420, 65, 0xFFFFFF, "Pg up/down = depth +/-;");
 	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
-					800, 5, 0xFFFFFF, "? = hide/show instructions;");
+					800, 25, 0xFFFFFF, "? = hide/show instructions;");
 	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
-					800, 25, 0xFFFFFF, "space = reset params;");
+					800, 45, 0xFFFFFF, "space = reset params;");
 	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
-					800, 45, 0xFFFFFF, "ESC = quit;");
+					800, 65, 0xFFFFFF, "ESC = quit;");
 }
 
 void	add_pixel(int x, int y, int z, t_infos *i)
@@ -60,7 +60,8 @@ void	get_coord(char *filename, t_infos *i)
 	char	**tmp;
 
 	y = 0;
-	fd = open(filename, O_RDWR);
+	if ((fd = open(filename, O_RDWR)) < 0)
+		error("unable to open file");
 	while (get_next_line(fd, &line) > 0)
 	{
 		x = 0;

@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 19:04:50 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 03:47:13 by ppomet           ###   ########.fr       */
+/*   Updated: 2016/05/19 04:06:06 by rbohmert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct			s_algo
 int						key_hook(int key, t_infos *i);
 void					init_info(t_infos *i, char *path);
 t_point					*get_lst_nb(t_list *list, t_infos *info);
+void					error(char *str);
 
 void					put_indic(t_infos *i, int mode);
 void					add_pixel(int x, int y, int z, t_infos *i);

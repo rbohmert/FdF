@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 16:32:47 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 03:29:56 by ppomet           ###   ########.fr       */
+/*   Updated: 2016/05/19 04:09:04 by rbohmert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,19 @@ t_point	*get_lst_nb(t_list *list, t_infos *info)
 	return ((t_point *)tmp->content);
 }
 
+void	error(char *str)
+{
+	ft_putstr("Error : ");
+	ft_putstr(str);
+	ft_putchar('\n');
+	exit(2);
+}	
+
 int		main(int ac, char **av)
 {
 	t_infos	i;
 
-	(ac == 1) ? printf("no arg") : 0;
+	(ac != 2) ? error("wrong number of arguments.") : 0;
 	i.mlx = mlx_init();
 	i.list = NULL;
 	init_info(&i, av[1]);
