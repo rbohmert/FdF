@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 19:00:46 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 02:45:53 by rbohmert         ###   ########.fr       */
+/*   Updated: 2016/05/19 03:29:37 by ppomet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,16 @@ t_point	calcul(t_point *p, t_infos *i, int mode)
 	if (mode)
 	{
 		pnew.x = i->xstart + ((p->x * i->zoom) + 0.35 * (p->y * i->zoom));
-		pnew.y = i->ystart - ((p->z * i->zoom / i->prof) - 0.35 * (p->y * i->zoom));
+		pnew.y = i->ystart -\
+				((p->z * i->zoom / i->prof) - 0.35 * (p->y * i->zoom));
 	}
 	else
 	{
-		pnew.x = i->xstart + ((sqrt(2) / 2) * ((p->x * i->zoom) - (p->y * i->zoom)));
-		pnew.y = (i->ystart - 50) - ((sqrt(2.0 / 3.0) * (p->z * i->zoom / i->prof)) - ((1 / sqrt(6)) * (i->zoom * (p->x + p->y))));
+		pnew.x = i->xstart +\
+				((sqrt(2) / 2) * ((p->x * i->zoom) - (p->y * i->zoom)));
+		pnew.y = (i->ystart - 50) -\
+				((sqrt(2.0 / 3.0) * (p->z * i->zoom / i->prof)) -\
+				((1 / sqrt(6)) * (i->zoom * (p->x + p->y))));
 	}
 	pnew.z = p->z;
 	return (pnew);
@@ -33,12 +37,13 @@ t_point	calcul(t_point *p, t_infos *i, int mode)
 void	put_img(t_infos *i, int mode)
 {
 	i->img = mlx_new_image(i->mlx, WIDTH, HEIGTH);
-	i->ptr_img = mlx_get_data_addr(i->img, &(i->bpp), &(i->img_line), &(i->endian));
+	i->ptr_img = mlx_get_data_addr(i->img, &(i->bpp),\
+				&(i->img_line), &(i->endian));
 	put_map(i, mode);
 	if (!mode)
-		mlx_put_image_to_window(i->mlx, i->win,i->img, 0, 0);
+		mlx_put_image_to_window(i->mlx, i->win, i->img, 0, 0);
 	else
-		mlx_put_image_to_window(i->mlx, i->win2,i->img, 0, 0);
+		mlx_put_image_to_window(i->mlx, i->win2, i->img, 0, 0);
 	if (i->show)
 		put_indic(i, mode);
 	mlx_destroy_image(i->mlx, i->img);
@@ -51,15 +56,21 @@ void	put_map(t_infos *i, int mode)
 	tmp = i->list;
 	while (tmp->next)
 	{
-		if ((((t_point *)tmp->content)->nb  % i->line_size) != 0)
-			put_line(calcul(tmp->content, i, mode), calcul(tmp->next->content, i, mode), i);
-		if (!(((t_point *)tmp->content)->nb > (i->line_size * (i->nb_line - 1))))
-			put_line(calcul(tmp->content, i, mode), calcul(get_lst_nb(tmp, i), i, mode), i);
+		if ((L(tmp)->nb % i->line_size) != 0)
+		{
+			put_line(calcul(tmp->content, i, mode),\
+					calcul(tmp->next->content, i, mode), i);
+		}
+		if (!(L(tmp)->nb > (i->line_size * (i->nb_line - 1))))
+		{
+			put_line(calcul(tmp->content, i, mode),\
+					calcul(get_lst_nb(tmp, i), i, mode), i);
+		}
 		tmp = tmp->next;
 	}
 }
 
-void put_line(t_point p1, t_point p2, t_infos *i)
+void	put_line(t_point p1, t_point p2, t_infos *i)
 {
 	t_algo		algo;
 
@@ -91,8 +102,11 @@ void	put_pixel(int x, int y, int color, t_infos *i)
 {
 	if (x >= 0 && y >= 0 && x < WIDTH && y < HEIGTH)
 	{
-		i->ptr_img[(i->img_line * y) + (i->bpp / 8 * x) + 2] = (color & 0xFF000000) >> 24;
-		i->ptr_img[(i->img_line * y) + (i->bpp / 8 * x) + 1] = (color & 0x00FF0000) >> 16;
-		i->ptr_img[(i->img_line * y) + (i->bpp / 8 * x)] = (color & 0x0000FF00) >> 8;
+		i->ptr_img[(i->img_line * y) + (i->bpp / 8 * x) + 2] =\
+									(color & 0xFF000000) >> 24;
+		i->ptr_img[(i->img_line * y) + (i->bpp / 8 * x) + 1] =\
+									(color & 0x00FF0000) >> 16;
+		i->ptr_img[(i->img_line * y) + (i->bpp / 8 * x)] =\
+									(color & 0x0000FF00) >> 8;
 	}
 }

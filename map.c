@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 19:43:56 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 02:51:16 by rbohmert         ###   ########.fr       */
+/*   Updated: 2016/05/19 03:19:15 by ppomet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,34 @@
 
 void	put_indic(t_infos *i, int mode)
 {
-	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 5, 5, 0xFFFFFF, i->path);
-	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 300, 5, 0xFFFFFF, "CONTROLS:");
-	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 420, 5, 0xFFFFFF, "arrows = move;");
-	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 420, 25, 0xFFFFFF, "+ / - = zoom +/-;");
-	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 420, 45, 0xFFFFFF, "Pg up/down = depth +/-;");
-	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 800, 5, 0xFFFFFF, "? = hide/show instructions;");
-	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 800, 25, 0xFFFFFF, "space = reset params;");
-	mlx_string_put(i->mlx, mode ? i->win2 : i->win, 800, 45, 0xFFFFFF, "ESC = quit;");
-}	
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
+					5, 5, 0xFFFFFF, i->path);
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
+					300, 5, 0xFFFFFF, "CONTROLS:");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
+					420, 5, 0xFFFFFF, "arrows = move;");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
+					420, 25, 0xFFFFFF, "+ / - = zoom +/-;");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
+					420, 45, 0xFFFFFF, "Pg up/down = depth +/-;");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
+					800, 5, 0xFFFFFF, "? = hide/show instructions;");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
+					800, 25, 0xFFFFFF, "space = reset params;");
+	mlx_string_put(i->mlx, mode ? i->win2 : i->win,\
+					800, 45, 0xFFFFFF, "ESC = quit;");
+}
 
 void	add_pixel(int x, int y, int z, t_infos *i)
 {
-	t_point	*p;
-	static int nb = 1;
+	t_point		*p;
+	static int	nb = 1;
+
 	if (!(p = (t_point *)malloc(sizeof(t_point))))
 		exit(2);
 	p->x = x;
 	p->y = y;
-	p->z =  z;
+	p->z = z;
 	p->nb = nb;
 	if (z > i->zmax)
 		i->zmax = z;
@@ -44,11 +53,11 @@ void	add_pixel(int x, int y, int z, t_infos *i)
 
 void	get_coord(char *filename, t_infos *i)
 {
-	int fd;
-	int y;
-	int x;
-	char *line;
-	char **tmp;
+	int		fd;
+	int		y;
+	int		x;
+	char	*line;
+	char	**tmp;
 
 	y = 0;
 	fd = open(filename, O_RDWR);

@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 22:39:24 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 02:51:15 by rbohmert         ###   ########.fr       */
+/*   Updated: 2016/05/19 03:16:09 by ppomet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	get_pas(t_point p1, t_point p2, t_algo *al)
 {
 	al->z = (double)p1.z;
-	al->pas_z = (double)(p2.z - p1.z) / sqrt(((p2.x - p1.x) * (p2.x - p1.x)) + ((p2.y - p1.y) * (p2.y - p1.y)));
+	al->pas_z = (double)(p2.z - p1.z) / sqrt(((p2.x - p1.x) * (p2.x - p1.x))\
+				+ ((p2.y - p1.y) * (p2.y - p1.y)));
 }
 
 int		concat(int r, int g, int b)
@@ -58,5 +59,5 @@ int		find_color(int z, t_infos *i)
 		g = 255 - ((255 * abs(z)) / abs(i->zmin));
 		b = 255;
 	}
-	return(concat(r, g, b));
+	return (concat(r, g, b));
 }

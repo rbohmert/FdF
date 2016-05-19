@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 16:32:47 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 02:51:18 by rbohmert         ###   ########.fr       */
+/*   Updated: 2016/05/19 03:29:56 by ppomet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		key_hook(int key, t_infos *i)
 	return (1);
 }
 
-void init_info(t_infos *i, char *path)
+void	init_info(t_infos *i, char *path)
 {
 	i->show = 1;
 	i->path = path;
@@ -44,19 +44,19 @@ void init_info(t_infos *i, char *path)
 	i->prof = 5;
 }
 
-t_point *get_lst_nb(t_list *list, t_infos *info)
+t_point	*get_lst_nb(t_list *list, t_infos *info)
 {
-	int 	i;
+	int		i;
 	t_list	*tmp;
 
 	tmp = list;
 	i = -1;
 	while (++i < info->line_size)
 		tmp = tmp->next;
-	return((t_point *)tmp->content);
+	return ((t_point *)tmp->content);
 }
 
-int main (int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_infos	i;
 
@@ -69,7 +69,7 @@ int main (int ac, char **av)
 	i.win2 = mlx_new_window(i.mlx, WIDTH, HEIGTH, "Perspective Cavaliere");
 	put_img(&i, 0);
 	put_img(&i, 1);
-	mlx_hook(i.win, 2, 3, key_hook, &i); 
-	mlx_hook(i.win2, 2, 3, key_hook, &i); 
+	mlx_hook(i.win, 2, 3, key_hook, &i);
+	mlx_hook(i.win2, 2, 3, key_hook, &i);
 	mlx_loop(i.mlx);
 }
