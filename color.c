@@ -6,11 +6,28 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 22:39:24 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 03:16:09 by ppomet           ###   ########.fr       */
+/*   Updated: 2016/05/26 23:41:30 by rbohmert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+char	*check_str(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str[i] != '-' && str[i] != '+' && !ft_isdigit(str[i]))
+		error("Bad data");
+	i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			error("Bad data");
+		i++;
+	}
+	return (str);
+}
 
 void	get_pas(t_point p1, t_point p2, t_algo *al)
 {
@@ -50,13 +67,13 @@ int		find_color(int z, t_infos *i)
 	else if (z >= i->zmax / 2)
 	{
 		r = 255;
-		g = 255 - ((255 * z) / i->zmax);
+		g = 255 - ((255 * (z - (i->zmax / 2))) / (i->zmax / 2));
 	}
 	else if (z < 0 && z > i->zmin / 2)
 		b = (255 * abs(z)) / (abs(i->zmin) / 2);
 	else if (z <= i->zmin / 2)
 	{
-		g = 255 - ((255 * abs(z)) / abs(i->zmin));
+		g = 255 - ((255 * (abs(z) - (abs(i->zmin) / 2))) / (abs(i->zmin) / 2));
 		b = 255;
 	}
 	return (concat(r, g, b));

@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 16:32:47 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 04:09:04 by rbohmert         ###   ########.fr       */
+/*   Updated: 2016/05/24 16:25:55 by rbohmert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		key_hook(int key, t_infos *i)
 {
-	printf("key : %d\n", key);
 	(key == 53) ? exit(2) : 0;
 	i->zoom += (key == 69) ? 1 : 0;
 	i->zoom -= (key == 78 && i->zoom > 1) ? 1 : 0;
@@ -62,7 +61,7 @@ void	error(char *str)
 	ft_putstr(str);
 	ft_putchar('\n');
 	exit(2);
-}	
+}
 
 int		main(int ac, char **av)
 {

@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 19:00:46 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 03:29:37 by ppomet           ###   ########.fr       */
+/*   Updated: 2016/05/26 23:36:42 by rbohmert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_point	calcul(t_point *p, t_infos *i, int mode)
 	{
 		pnew.x = i->xstart +\
 				((sqrt(2) / 2) * ((p->x * i->zoom) - (p->y * i->zoom)));
-		pnew.y = (i->ystart - 50) -\
+		pnew.y = (i->ystart) -\
 				((sqrt(2.0 / 3.0) * (p->z * i->zoom / i->prof)) -\
 				((1 / sqrt(6)) * (i->zoom * (p->x + p->y))));
 	}

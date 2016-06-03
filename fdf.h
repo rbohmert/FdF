@@ -6,7 +6,7 @@
 /*   By: rbohmert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 19:04:50 by rbohmert          #+#    #+#             */
-/*   Updated: 2016/05/19 04:06:06 by rbohmert         ###   ########.fr       */
+/*   Updated: 2016/05/26 23:24:28 by rbohmert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void					error(char *str);
 
 void					put_indic(t_infos *i, int mode);
 void					add_pixel(int x, int y, int z, t_infos *i);
+void					check_length(int x, int y, t_infos *i);
+void					check(char *filename);
 void					get_coord(char *filename, t_infos *i);
 
 t_point					calcul(t_point *p, t_infos *i, int mode);
@@ -79,6 +81,7 @@ void					put_map(t_infos *i, int mode);
 void					put_line(t_point p1, t_point p2, t_infos *i);
 void					put_pixel(int x, int y, int color, t_infos *i);
 
+char					*check_str(char *str);
 void					get_pas(t_point p1, t_point p2, t_algo *al);
 void					put_indic(t_infos *i, int mode);
 int						find_color(int z, t_infos *i);
